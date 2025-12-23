@@ -132,6 +132,10 @@
             background: #ff7b7b;
         }
         
+        .btn-scoreboard {
+            background: #6a5acd;
+        }
+        
         .main-board {
             position: relative;
             width: 100%;
@@ -154,9 +158,8 @@
             width: 60px;
             height: 75px;
             background: linear-gradient(145deg, #fff8e1 0%, #ffe082 100%);
-            border-radius: 6px;
+            border-radius: 8px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
@@ -168,6 +171,7 @@
             -webkit-user-select: none;
             user-select: none;
             transform-origin: center;
+            padding: 0;
         }
         
         .tile:hover, .tile:active {
@@ -202,9 +206,13 @@
         }
         
         .tile-symbol {
-            font-size: 1.8rem;
+            font-size: 2.8rem;
             font-weight: bold;
-            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
         }
         
         .tile-symbol.honor {
@@ -223,11 +231,20 @@
             color: #b71c1c;
         }
         
-        .tile-name {
-            font-size: 0.7rem;
-            color: #333;
-            font-weight: bold;
-            text-align: center;
+        .tile-symbol.wind {
+            color: #4a148c;
+        }
+        
+        .tile-symbol.dragon {
+            color: #0d47a1;
+        }
+        
+        .tile-symbol.flower {
+            color: #e91e63;
+        }
+        
+        .tile-symbol.season {
+            color: #009688;
         }
         
         .placeholder-area {
@@ -264,7 +281,7 @@
             width: 55px;
             height: 70px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
+            border-radius: 8px;
             border: 2px dashed rgba(255, 222, 89, 0.5);
             display: flex;
             align-items: center;
@@ -311,9 +328,8 @@
             width: 50px;
             height: 65px;
             background: linear-gradient(145deg, #fff8e1 0%, #ffe082 100%);
-            border-radius: 5px;
+            border-radius: 8px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
@@ -428,6 +444,181 @@
             max-width: 130px;
         }
         
+        .scoreboard-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+            padding: 20px;
+        }
+        
+        .scoreboard-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .scoreboard-content {
+            background: linear-gradient(135deg, #1a5f23 0%, #0d3b1e 100%);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            width: 100%;
+            max-width: 350px;
+            border: 4px solid #ffde59;
+            transform: scale(0.8);
+            transition: transform 0.5s;
+        }
+        
+        .scoreboard-modal.active .scoreboard-content {
+            transform: scale(1);
+        }
+        
+        .scoreboard-content h2 {
+            font-size: 1.8rem;
+            color: #ffde59;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #c53030;
+        }
+        
+        .scoreboard-item {
+            background: rgba(30, 100, 50, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #ffde59;
+        }
+        
+        .scoreboard-label {
+            font-size: 0.9rem;
+            color: #b8ffc1;
+            margin-bottom: 5px;
+        }
+        
+        .scoreboard-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffde59;
+            text-shadow: 1px 1px 0 #c53030;
+        }
+        
+        .level-indicator {
+            display: inline-block;
+            background: #ffde59;
+            color: #0d3b1e;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+            margin-left: 5px;
+            font-size: 0.7rem;
+        }
+        
+        .level-indicator-large {
+            display: inline-block;
+            background: #ffde59;
+            color: #0d3b1e;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        .completion-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+        
+        .completion-animation.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .completion-content {
+            background: linear-gradient(135deg, #1a5f23 0%, #0d3b1e 100%);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            border: 5px solid #ffde59;
+            transform: scale(0.8);
+            transition: transform 0.5s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .completion-animation.active .completion-content {
+            transform: scale(1);
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 20px #ffde59; }
+            to { box-shadow: 0 0 40px #ffde59, 0 0 60px #ff7b7b; }
+        }
+        
+        .completion-title {
+            font-size: 2.5rem;
+            color: #ffde59;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0 #c53030;
+            animation: bounce 1s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+        
+        .completion-message {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        
+        .completion-score {
+            font-size: 2.5rem;
+            color: #ffde59;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 2px 2px 0 #c53030;
+            animation: pulse 1.5s infinite alternate;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background: #ffde59;
+            top: -20px;
+            animation: confetti-fall 3s linear forwards;
+        }
+        
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
         .footer {
             margin-top: 15px;
             text-align: center;
@@ -442,17 +633,6 @@
             color: #ffde59;
             font-size: 0.9rem;
             margin-top: 5px;
-        }
-        
-        .level-indicator {
-            display: inline-block;
-            background: #ffde59;
-            color: #0d3b1e;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-weight: bold;
-            margin-left: 5px;
-            font-size: 0.7rem;
         }
         
         .clickable-indicator {
@@ -512,7 +692,7 @@
             }
             
             .tile-symbol {
-                font-size: 1.5rem;
+                font-size: 2.2rem;
             }
             
             .slot {
@@ -537,7 +717,7 @@
             }
             
             .tile-symbol {
-                font-size: 1.5rem;
+                font-size: 2.2rem;
             }
             
             .btn {
@@ -578,12 +758,40 @@
             80% { opacity: 1; }
             100% { opacity: 0; }
         }
+        
+        .warning {
+            color: #ff7b7b;
+            font-weight: bold;
+            animation: warningPulse 1s infinite;
+        }
+        
+        @keyframes warningPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .level-up-notification {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffde59;
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 1000;
+            animation: fadeInOut 2s ease-in-out;
+            text-align: center;
+            font-size: 1.5rem;
+            border: 2px solid #ffde59;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1><i class="fas fa-dragon"></i> 火羽麻将消消乐 <i class="fas fa-dragon"></i></h1>
-        <p class="subtitle">十三幺不规则散落版 - 所有牌不规则散落，有露出部分即可点击拿取</p>
+        <p class="subtitle">不规则散落版 - 所有牌不规则散落，有露出部分即可点击拿取</p>
     </div>
     
     <div class="game-container">
@@ -594,11 +802,11 @@
             </div>
             <div class="info-box">
                 <div class="info-label">剩余牌数</div>
-                <div class="info-value" id="remaining">39</div>
+                <div class="info-value" id="remaining">9</div>
             </div>
             <div class="info-box">
-                <div class="info-label">已选牌数</div>
-                <div class="info-value" id="selected">0</div>
+                <div class="info-label">关卡</div>
+                <div class="info-value" id="level">1/10</div>
             </div>
             <div class="info-box">
                 <div class="info-label">摆放框</div>
@@ -616,6 +824,9 @@
             <button class="btn btn-restart" id="restart-btn">
                 <i class="fas fa-redo"></i> 重玩
             </button>
+            <button class="btn btn-scoreboard" id="scoreboard-btn">
+                <i class="fas fa-trophy"></i> 积分榜
+            </button>
         </div>
         
         <div class="main-board" id="main-board">
@@ -625,7 +836,7 @@
         </div>
         
         <div class="placeholder-area">
-            <div class="placeholder-title">摆放框（最多8张牌）</div>
+            <div class="placeholder-title">摆放框（最多8张牌）<span class="warning">放置8张牌将导致失败！</span></div>
             <div class="placeholder-slots" id="placeholder-slots">
                 <!-- 摆放框将通过JavaScript动态生成 -->
             </div>
@@ -642,14 +853,13 @@
     <div class="instructions">
         <h3><i class="fas fa-info-circle"></i> 游戏规则</h3>
         <ol>
-            <li>游戏使用<strong>十三幺牌型</strong>：东南西北中发白 + 一九万 + 一九筒 + 一九条</li>
             <li>所有麻将牌<strong>不规则散落</strong>在游戏板上，有随机旋转角度</li>
             <li>牌与牌<strong>互相重叠遮挡</strong>，只要有<strong>露出部分</strong>就可以点击拿取</li>
             <li>点击主游戏区的牌，将其移到<strong>摆放框</strong>（最多8张牌）</li>
             <li>当摆放框中有<strong>3张相同类型</strong>的牌时，会自动消除并获得分数</li>
             <li>每次成功消除获得<strong>100分</strong>，连续消除可获得额外加分</li>
-            <li><strong>策略提示</strong>：合理安排拿牌顺序，优先拿取遮挡其他牌的上层牌</li>
-            <li><strong>牌数保证</strong>：13种牌每种3张，共39张，确保所有牌都能消除</li>
+            <li><strong>关卡系统</strong>：共10关，每关难度递增，牌的种类和数量增加</li>
+            <li><strong>失败条件</strong>：摆放框达到8张牌时游戏失败，重新开始游戏</li>
         </ol>
     </div>
     
@@ -657,7 +867,8 @@
         <div class="game-over-content">
             <h2 id="game-result">恭喜过关！</h2>
             <p id="result-message">你成功消除了所有麻将牌！</p>
-            <div class="final-score">得分: <span id="final-score">0</span></div>
+            <div class="final-score">当前得分: <span id="final-score">0</span></div>
+            <div class="level-indicator-large">关卡: <span id="final-level">1</span></div>
             <div class="game-over-buttons">
                 <button class="btn" id="next-level-btn">
                     <i class="fas fa-forward"></i> 下一关
@@ -669,53 +880,194 @@
         </div>
     </div>
     
+    <div class="game-over" id="game-fail">
+        <div class="game-over-content">
+            <h2 id="game-fail-result">游戏失败</h2>
+            <p id="fail-message">摆放框已满！游戏结束。</p>
+            <div class="final-score">得分: <span id="fail-score">0</span></div>
+            <div class="level-indicator-large">关卡: <span id="fail-level">1</span></div>
+            <div class="game-over-buttons">
+                <button class="btn" id="fail-restart-btn">
+                    <i class="fas fa-play"></i> 重新开始
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="completion-animation" id="completion-animation">
+        <div class="completion-content">
+            <h2 class="completion-title"><i class="fas fa-trophy"></i> 通关成功！</h2>
+            <p class="completion-message">恭喜你通过了所有10个关卡！</p>
+            <div class="completion-score">最终得分: <span id="completion-score">0</span></div>
+            <p class="completion-message">你已经成为麻将消消乐大师！</p>
+            <button class="btn" id="completion-restart-btn">
+                <i class="fas fa-play-circle"></i> 重新开始游戏
+            </button>
+        </div>
+    </div>
+    
+    <div class="scoreboard-modal" id="scoreboard-modal">
+        <div class="scoreboard-content">
+            <h2><i class="fas fa-trophy"></i> 积分榜</h2>
+            <div class="scoreboard-item">
+                <div class="scoreboard-label">最高积分</div>
+                <div class="scoreboard-value" id="high-score">0</div>
+            </div>
+            <button class="btn" id="close-scoreboard-btn">
+                <i class="fas fa-times"></i> 关闭
+            </button>
+        </div>
+    </div>
+    
     <div class="footer">
-        <p>火羽麻将消消乐 - 十三幺不规则散落手机版</p>
+        <p>火羽麻将消消乐 - 不规则散落手机版</p>
         <p class="company-logo">© 2023 火羽传媒公司 版权所有</p>
     </div>
 
     <script>
         // 游戏配置
         const config = {
-            totalTiles: 39, // 13种牌 * 3张 = 39张
+            totalLevels: 10, // 总关卡数
             tilesPerMatch: 3, // 需要匹配的数量
             baseScore: 100, // 基础得分
-            maxSelected: 3, // 最大选择数量
             maxSlots: 8, // 摆放框最大数量
-            level: 1 // 当前关卡
+            level: 1, // 当前关卡
+            // 大幅提升难度：第10关达到210张牌
+            levelConfig: [
+                {typeCount: 3, tilesPerType: 3},      // 第1关：3种牌，每种3张，共9张
+                {typeCount: 5, tilesPerType: 3},      // 第2关：5种牌，每种3张，共15张
+                {typeCount: 8, tilesPerType: 3},      // 第3关：8种牌，每种3张，共24张
+                {typeCount: 12, tilesPerType: 3},     // 第4关：12种牌，每种3张，共36张
+                {typeCount: 16, tilesPerType: 3},     // 第5关：16种牌，每种3张，共48张
+                {typeCount: 20, tilesPerType: 3},     // 第6关：20种牌，每种3张，共60张
+                {typeCount: 25, tilesPerType: 3},     // 第7关：25种牌，每种3张，共75张
+                {typeCount: 30, tilesPerType: 3},     // 第8关：30种牌，每种3张，共90张
+                {typeCount: 40, tilesPerType: 3},     // 第9关：40种牌，每种3张，共120张
+                {typeCount: 70, tilesPerType: 3}      // 第10关：70种牌，每种3张，共210张
+            ]
         };
 
-        // 十三幺牌型定义
-        const thirteenOrphansTiles = [
-            // 字牌
-            { symbol: "🀀", name: "东", id: "east", type: "honor", class: "honor" },
-            { symbol: "🀁", name: "南", id: "south", type: "honor", class: "honor" },
-            { symbol: "🀂", name: "西", id: "west", type: "honor", class: "honor" },
-            { symbol: "🀃", name: "北", id: "north", type: "honor", class: "honor" },
-            { symbol: "🀄", name: "中", id: "red", type: "honor", class: "honor" },
-            { symbol: "🀅", name: "发", id: "green", type: "honor", class: "honor" },
-            { symbol: "🀆", name: "白", id: "white", type: "honor", class: "honor" },
+        // 扩展麻将牌型定义（包含所有常见牌型，并增加重复以满足210张牌的需求）
+        const mahjongTiles = [
+            // 风牌
+            { symbol: "🀀", id: "east", type: "wind", class: "wind" },
+            { symbol: "🀁", id: "south", type: "wind", class: "wind" },
+            { symbol: "🀂", id: "west", type: "wind", class: "wind" },
+            { symbol: "🀃", id: "north", type: "wind", class: "wind" },
+            
+            // 箭牌（三元牌）
+            { symbol: "🀄", id: "red", type: "dragon", class: "dragon" },
+            { symbol: "🀅", id: "green", type: "dragon", class: "dragon" },
+            { symbol: "🀆", id: "white", type: "dragon", class: "dragon" },
+            
             // 万子
-            { symbol: "🀇", name: "一万", id: "1man", type: "character", class: "character" },
-            { symbol: "🀏", name: "九万", id: "9man", type: "character", class: "character" },
+            { symbol: "🀇", id: "1man", type: "character", class: "character" },
+            { symbol: "🀈", id: "2man", type: "character", class: "character" },
+            { symbol: "🀉", id: "3man", type: "character", class: "character" },
+            { symbol: "🀊", id: "4man", type: "character", class: "character" },
+            { symbol: "🀋", id: "5man", type: "character", class: "character" },
+            { symbol: "🀌", id: "6man", type: "character", class: "character" },
+            { symbol: "🀍", id: "7man", type: "character", class: "character" },
+            { symbol: "🀎", id: "8man", type: "character", class: "character" },
+            { symbol: "🀏", id: "9man", type: "character", class: "character" },
+            
             // 筒子
-            { symbol: "🀙", name: "一筒", id: "1pin", type: "circle", class: "circle" },
-            { symbol: "🀡", name: "九筒", id: "9pin", type: "circle", class: "circle" },
+            { symbol: "🀙", id: "1pin", type: "circle", class: "circle" },
+            { symbol: "🀚", id: "2pin", type: "circle", class: "circle" },
+            { symbol: "🀛", id: "3pin", type: "circle", class: "circle" },
+            { symbol: "🀜", id: "4pin", type: "circle", class: "circle" },
+            { symbol: "🀝", id: "5pin", type: "circle", class: "circle" },
+            { symbol: "🀞", id: "6pin", type: "circle", class: "circle" },
+            { symbol: "🀟", id: "7pin", type: "circle", class: "circle" },
+            { symbol: "🀠", id: "8pin", type: "circle", class: "circle" },
+            { symbol: "🀡", id: "9pin", type: "circle", class: "circle" },
+            
             // 条子
-            { symbol: "🀐", name: "一条", id: "1sou", type: "bamboo", class: "bamboo" },
-            { symbol: "🀘", name: "九条", id: "9sou", type: "bamboo", class: "bamboo" }
+            { symbol: "🀐", id: "1sou", type: "bamboo", class: "bamboo" },
+            { symbol: "🀑", id: "2sou", type: "bamboo", class: "bamboo" },
+            { symbol: "🀒", id: "3sou", type: "bamboo", class: "bamboo" },
+            { symbol: "🀓", id: "4sou", type: "bamboo", class: "bamboo" },
+            { symbol: "🀔", id: "5sou", type: "bamboo", class: "bamboo" },
+            { symbol: "🀕", id: "6sou", type: "bamboo", class: "bamboo" },
+            { symbol: "🀖", id: "7sou", type: "bamboo", class: "bamboo" },
+            { symbol: "🀗", id: "8sou", type: "bamboo", class: "bamboo" },
+            { symbol: "🀘", id: "9sou", type: "bamboo", class: "bamboo" },
+            
+            // 花牌（用于后期增加难度）
+            { symbol: "🀢", id: "flower1", type: "flower", class: "flower" },
+            { symbol: "🀣", id: "flower2", type: "flower", class: "flower" },
+            { symbol: "🀤", id: "flower3", type: "flower", class: "flower" },
+            { symbol: "🀥", id: "flower4", type: "flower", class: "flower" },
+            { symbol: "🀦", id: "season1", type: "season", class: "season" },
+            { symbol: "🀧", id: "season2", type: "season", class: "season" },
+            { symbol: "🀨", id: "season3", type: "season", class: "season" },
+            { symbol: "🀩", id: "season4", type: "season", class: "season" },
+            
+            // 重复牌型以满足高关卡需求（现实麻将只有34种牌，这里重复以凑够70种）
+            { symbol: "🀀", id: "east2", type: "wind", class: "wind" },
+            { symbol: "🀁", id: "south2", type: "wind", class: "wind" },
+            { symbol: "🀂", id: "west2", type: "wind", class: "wind" },
+            { symbol: "🀃", id: "north2", type: "wind", class: "wind" },
+            { symbol: "🀄", id: "red2", type: "dragon", class: "dragon" },
+            { symbol: "🀅", id: "green2", type: "dragon", class: "dragon" },
+            { symbol: "🀆", id: "white2", type: "dragon", class: "dragon" },
+            { symbol: "🀇", id: "1man2", type: "character", class: "character" },
+            { symbol: "🀈", id: "2man2", type: "character", class: "character" },
+            { symbol: "🀉", id: "3man2", type: "character", class: "character" },
+            { symbol: "🀊", id: "4man2", type: "character", class: "character" },
+            { symbol: "🀋", id: "5man2", type: "character", class: "character" },
+            { symbol: "🀌", id: "6man2", type: "character", class: "character" },
+            { symbol: "🀍", id: "7man2", type: "character", class: "character" },
+            { symbol: "🀎", id: "8man2", type: "character", class: "character" },
+            { symbol: "🀏", id: "9man2", type: "character", class: "character" },
+            { symbol: "🀙", id: "1pin2", type: "circle", class: "circle" },
+            { symbol: "🀚", id: "2pin2", type: "circle", class: "circle" },
+            { symbol: "🀛", id: "3pin2", type: "circle", class: "circle" },
+            { symbol: "🀜", id: "4pin2", type: "circle", class: "circle" },
+            { symbol: "🀝", id: "5pin2", type: "circle", class: "circle" },
+            { symbol: "🀞", id: "6pin2", type: "circle", class: "circle" },
+            { symbol: "🀟", id: "7pin2", type: "circle", class: "circle" },
+            { symbol: "🀠", id: "8pin2", type: "circle", class: "circle" },
+            { symbol: "🀡", id: "9pin2", type: "circle", class: "circle" },
+            { symbol: "🀐", id: "1sou2", type: "bamboo", class: "bamboo" },
+            { symbol: "🀑", id: "2sou2", type: "bamboo", class: "bamboo" },
+            { symbol: "🀒", id: "3sou2", type: "bamboo", class: "bamboo" },
+            { symbol: "🀓", id: "4sou2", type: "bamboo", class: "bamboo" },
+            { symbol: "🀔", id: "5sou2", type: "bamboo", class: "bamboo" },
+            { symbol: "🀕", id: "6sou2", type: "bamboo", class: "bamboo" },
+            { symbol: "🀖", id: "7sou2", type: "bamboo", class: "bamboo" },
+            { symbol: "🀗", id: "8sou2", type: "bamboo", class: "bamboo" },
+            { symbol: "🀘", id: "9sou2", type: "bamboo", class: "bamboo" },
+            { symbol: "🀢", id: "flower5", type: "flower", class: "flower" },
+            { symbol: "🀣", id: "flower6", type: "flower", class: "flower" },
+            { symbol: "🀤", id: "flower7", type: "flower", class: "flower" },
+            { symbol: "🀥", id: "flower8", type: "flower", class: "flower" },
+            { symbol: "🀦", id: "season5", type: "season", class: "season" },
+            { symbol: "🀧", id: "season6", type: "season", class: "season" },
+            { symbol: "🀨", id: "season7", type: "season", class: "season" },
+            { symbol: "🀩", id: "season8", type: "season", class: "season" },
+            { symbol: "🀀", id: "east3", type: "wind", class: "wind" },
+            { symbol: "🀁", id: "south3", type: "wind", class: "wind" },
+            { symbol: "🀂", id: "west3", type: "wind", class: "wind" },
+            { symbol: "🀃", id: "north3", type: "wind", class: "wind" },
+            { symbol: "🀄", id: "red3", type: "dragon", class: "dragon" },
+            { symbol: "🀅", id: "green3", type: "dragon", class: "dragon" },
+            { symbol: "🀆", id: "white3", type: "dragon", class: "dragon" }
         ];
 
         // 游戏状态
         const gameState = {
             score: 0,
-            remainingTiles: config.totalTiles,
+            remainingTiles: 0,
             selectedTiles: [], // 已选择的牌（从摆放框中选择）
             tiles: [], // 所有麻将牌
             placeholderTiles: [], // 摆放框中的牌
             combo: 0,
             isGameOver: false,
-            level: config.level
+            level: config.level,
+            // 积分榜数据（只保留最高分数）
+            highScore: 0,
+            isGameComplete: false // 标记游戏是否通关
         };
 
         // DOM 元素
@@ -724,18 +1076,32 @@
         const placeholderSlots = document.getElementById('placeholder-slots');
         const scoreElement = document.getElementById('score');
         const remainingElement = document.getElementById('remaining');
-        const selectedElement = document.getElementById('selected');
+        const levelElement = document.getElementById('level');
         const slotsUsedElement = document.getElementById('slots-used');
         const selectedTilesContainer = document.getElementById('selected-tiles');
         const hintBtn = document.getElementById('hint-btn');
         const shuffleBtn = document.getElementById('shuffle-btn');
         const restartBtn = document.getElementById('restart-btn');
+        const scoreboardBtn = document.getElementById('scoreboard-btn');
         const gameOverElement = document.getElementById('game-over');
         const gameResultElement = document.getElementById('game-result');
         const resultMessageElement = document.getElementById('result-message');
         const finalScoreElement = document.getElementById('final-score');
+        const finalLevelElement = document.getElementById('final-level');
         const nextLevelBtn = document.getElementById('next-level-btn');
         const gameOverRestartBtn = document.getElementById('game-over-restart-btn');
+        const gameFailElement = document.getElementById('game-fail');
+        const gameFailResultElement = document.getElementById('game-fail-result');
+        const failMessageElement = document.getElementById('fail-message');
+        const failScoreElement = document.getElementById('fail-score');
+        const failLevelElement = document.getElementById('fail-level');
+        const failRestartBtn = document.getElementById('fail-restart-btn');
+        const scoreboardModal = document.getElementById('scoreboard-modal');
+        const highScoreElement = document.getElementById('high-score');
+        const closeScoreboardBtn = document.getElementById('close-scoreboard-btn');
+        const completionAnimation = document.getElementById('completion-animation');
+        const completionScoreElement = document.getElementById('completion-score');
+        const completionRestartBtn = document.getElementById('completion-restart-btn');
 
         // 初始化游戏
         function initGame() {
@@ -746,7 +1112,13 @@
             gameState.combo = 0;
             gameState.isGameOver = false;
             gameState.level = config.level;
-            gameState.remainingTiles = config.totalTiles;
+            gameState.isGameComplete = false;
+            
+            const levelConfig = config.levelConfig[gameState.level - 1];
+            gameState.remainingTiles = levelConfig.typeCount * levelConfig.tilesPerType;
+            
+            // 加载积分榜数据
+            loadScoreboard();
             
             updateUI();
             generateTiles();
@@ -755,18 +1127,77 @@
             renderPlaceholderSlots();
             renderSelectedTiles();
             hideGameOver();
+            hideGameFail();
         }
 
-        // 生成麻将牌（十三幺，每种3张）
+        // 开始新关卡（不重置分数）
+        function startNewLevel() {
+            gameState.selectedTiles = [];
+            gameState.tiles = [];
+            gameState.placeholderTiles = [];
+            gameState.combo = 0;
+            gameState.isGameOver = false;
+            
+            const levelConfig = config.levelConfig[gameState.level - 1];
+            gameState.remainingTiles = levelConfig.typeCount * levelConfig.tilesPerType;
+            
+            updateUI();
+            generateTiles();
+            arrangeTilesRandomly();
+            renderTiles();
+            renderPlaceholderSlots();
+            renderSelectedTiles();
+            hideGameOver();
+            hideGameFail();
+        }
+
+        // 进入下一关
+        function nextLevel() {
+            if (gameState.level < config.totalLevels) {
+                gameState.level++;
+                config.level = gameState.level;
+                hideGameOver();
+                startNewLevel();
+            } else {
+                // 通关所有关卡
+                hideGameOver();
+                setTimeout(() => {
+                    showCompletionAnimation();
+                }, 500);
+            }
+        }
+
+        // 显示关卡升级通知
+        function showLevelUpNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'level-up-notification';
+            notification.innerHTML = `第 ${gameState.level} 关！`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 2000);
+        }
+
+        // 生成麻将牌（根据当前关卡配置）
         function generateTiles() {
             gameState.tiles = [];
             
-            // 每种十三幺牌生成3张
-            thirteenOrphansTiles.forEach(tileType => {
-                for (let i = 0; i < 3; i++) {
+            const levelConfig = config.levelConfig[gameState.level - 1];
+            
+            // 获取当前关卡要使用的牌型（随机选择）
+            const availableTiles = [...mahjongTiles];
+            shuffleArray(availableTiles);
+            
+            // 选择前 typeCount 种牌
+            const selectedTileTypes = availableTiles.slice(0, levelConfig.typeCount);
+            
+            // 每种牌生成 tilesPerType 张
+            selectedTileTypes.forEach(tileType => {
+                for (let i = 0; i < levelConfig.tilesPerType; i++) {
                     gameState.tiles.push({
                         ...tileType,
-                        uniqueId: `${tileType.id}-${i}`,
+                        uniqueId: `${tileType.id}-${i}-${Date.now()}-${Math.random()}`,
                         selected: false,
                         x: 0, // 位置将在arrangeTilesRandomly中设置
                         y: 0,
@@ -794,8 +1225,14 @@
             const boardHeight = mainBoard.offsetHeight;
             
             // 牌的基本尺寸
-            const tileWidth = 60;
-            const tileHeight = 75;
+            const baseTileWidth = 60;
+            const baseTileHeight = 75;
+            
+            // 根据关卡调整牌的大小（后期关卡牌变小，增加难度）
+            // 第1关：100%大小，第10关：30%大小
+            const sizeMultiplier = Math.max(0.3, 1 - (gameState.level - 1) * 0.078);
+            const tileWidth = baseTileWidth * sizeMultiplier;
+            const tileHeight = baseTileHeight * sizeMultiplier;
             
             // 用于记录已放置牌的位置，用于碰撞检测
             const placedTiles = [];
@@ -811,11 +1248,13 @@
                 let attempts = 0;
                 let placed = false;
                 
-                // 尝试放置牌，最多尝试100次
-                while (!placed && attempts < 100) {
+                // 尝试放置牌，最多尝试次数根据关卡增加
+                const maxAttempts = 50 + (gameState.level * 10);
+                
+                while (!placed && attempts < maxAttempts) {
                     // 随机位置（考虑牌在边界内）
-                    const x = Math.random() * (boardWidth - tileWidth * 0.8);
-                    const y = Math.random() * (boardHeight - tileHeight * 0.8);
+                    const x = Math.random() * (boardWidth - tileWidth * 0.6);
+                    const y = Math.random() * (boardHeight - tileHeight * 0.6);
                     
                     // 随机旋转角度（-45度到45度）
                     const rotation = (Math.random() - 0.5) * 90;
@@ -834,8 +1273,9 @@
                         // 计算重叠面积
                         const overlap = calculateOverlapArea(tileBounds, placedTile.bounds);
                         
-                        // 如果重叠面积超过牌面积的30%，则认为重叠太多
-                        if (overlap > tileWidth * tileHeight * 0.3) {
+                        // 后期关卡允许更多重叠，增加堆叠程度
+                        const overlapThreshold = 0.6 - (gameState.level * 0.03);
+                        if (overlap > tileWidth * tileHeight * overlapThreshold) {
                             overlapTooMuch = true;
                             break;
                         }
@@ -862,7 +1302,7 @@
                     attempts++;
                 }
                 
-                // 如果100次尝试后仍未放置，则强制放置在一个随机位置
+                // 如果多次尝试后仍未放置，则强制放置在一个随机位置
                 if (!placed) {
                     tile.x = Math.random() * (boardWidth - tileWidth);
                     tile.y = Math.random() * (boardHeight - tileHeight);
@@ -1022,6 +1462,11 @@
 
         // 创建麻将牌元素
         function createTileElement(tile) {
+            // 根据关卡调整牌的大小
+            const sizeMultiplier = Math.max(0.3, 1 - (gameState.level - 1) * 0.078);
+            const tileWidth = 60 * sizeMultiplier;
+            const tileHeight = 75 * sizeMultiplier;
+            
             const tileElement = document.createElement('div');
             tileElement.className = `tile`;
             tileElement.dataset.id = tile.uniqueId;
@@ -1029,6 +1474,8 @@
             tileElement.style.top = `${tile.y}px`;
             tileElement.style.transform = `rotate(${tile.rotation}deg)`;
             tileElement.style.zIndex = tile.zIndex;
+            tileElement.style.width = `${tileWidth}px`;
+            tileElement.style.height = `${tileHeight}px`;
             
             if (tile.selected) {
                 tileElement.classList.add('selected');
@@ -1039,10 +1486,9 @@
                 tileElement.style.cursor = 'not-allowed';
             }
             
-            // 麻将牌内容
+            // 麻将牌内容（只显示符号，不显示中文名称，符号最大化）
             tileElement.innerHTML = `
                 <div class="tile-symbol ${tile.class}">${tile.symbol}</div>
-                <div class="tile-name">${tile.name}</div>
                 ${tile.clickable ? '<div class="clickable-indicator"></div>' : ''}
             `;
             
@@ -1080,8 +1526,6 @@
                     slotElement.innerHTML = `
                         <div class="tile-symbol ${tile.class}">${tile.symbol}</div>
                     `;
-                    
-                    // 不再需要点击事件，因为现在是自动消除
                 } else {
                     slotElement.textContent = i + 1;
                 }
@@ -1108,7 +1552,6 @@
                 
                 selectedTileElement.innerHTML = `
                     <div class="tile-symbol ${tile.class}">${tile.symbol}</div>
-                    <div class="tile-name">${tile.name}</div>
                 `;
                 
                 selectedTilesContainer.appendChild(selectedTileElement);
@@ -1119,7 +1562,8 @@
         function moveTileToPlaceholder(tile) {
             // 检查摆放框是否已满
             if (gameState.placeholderTiles.length >= config.maxSlots) {
-                alert("摆放框已满！请先消除一些牌。");
+                // 摆放框达到8张牌，游戏失败，重新开始游戏
+                showGameFail();
                 return;
             }
             
@@ -1146,6 +1590,14 @@
             
             // 播放音效
             playSound('select');
+            
+            // 检查摆放框是否达到8张（再次检查，因为可能刚添加了一张）
+            if (gameState.placeholderTiles.length >= config.maxSlots) {
+                // 短暂延迟后触发游戏失败，重新开始游戏
+                setTimeout(() => {
+                    showGameFail();
+                }, 300);
+            }
         }
 
         // 检查摆放框中是否有3张相同的牌可以自动消除
@@ -1181,7 +1633,7 @@
         function showAutoMatchNotification(tile) {
             const notification = document.createElement('div');
             notification.className = 'auto-match-notification';
-            notification.innerHTML = `自动消除: ${tile.symbol} ${tile.name} x3`;
+            notification.innerHTML = `自动消除: ${tile.symbol} x3`;
             document.body.appendChild(notification);
             
             setTimeout(() => {
@@ -1225,42 +1677,15 @@
             
             // 检查游戏是否结束
             if (gameState.remainingTiles <= 0) {
-                setTimeout(() => endGame(true), 500);
+                setTimeout(() => {
+                    // 显示过关界面，等待玩家点击下一关
+                    showGameOver();
+                    playSound('win');
+                }, 500);
             } else {
                 // 检查是否还有更多可自动消除的牌
                 setTimeout(() => checkForAutoMatches(), 300);
             }
-        }
-
-        // 检查是否有有效移动
-        function hasValidMoves() {
-            // 如果摆放框未满，还有可点击的牌，那么一定有有效移动
-            if (gameState.placeholderTiles.length < config.maxSlots) {
-                const clickableTiles = gameState.tiles.filter(t => 
-                    !t.removed && !t.inPlaceholder && t.clickable
-                );
-                if (clickableTiles.length > 0) {
-                    return true;
-                }
-            }
-            
-            // 检查摆放框中是否有可匹配的牌
-            const tileCounts = {};
-            gameState.placeholderTiles.forEach(tile => {
-                if (!tileCounts[tile.id]) {
-                    tileCounts[tile.id] = 0;
-                }
-                tileCounts[tile.id]++;
-            });
-            
-            // 检查是否有至少3张相同类型的牌
-            for (const tileId in tileCounts) {
-                if (tileCounts[tileId] >= config.tilesPerMatch) {
-                    return true;
-                }
-            }
-            
-            return false;
         }
 
         // 提示功能
@@ -1362,49 +1787,152 @@
         // 更新摆放框使用情况
         function updateSlotsUsed() {
             slotsUsedElement.textContent = `${gameState.placeholderTiles.length}/${config.maxSlots}`;
+            
+            // 如果摆放框接近满，显示警告
+            if (gameState.placeholderTiles.length >= 6) {
+                slotsUsedElement.style.color = '#ff7b7b';
+            } else {
+                slotsUsedElement.style.color = '#ffde59';
+            }
         }
 
-        // 结束游戏
-        function endGame(isWin) {
+        // 显示过关界面
+        function showGameOver() {
             gameState.isGameOver = true;
+            finalScoreElement.textContent = gameState.score;
+            finalLevelElement.textContent = gameState.level;
+            gameOverElement.classList.add('active');
             
-            if (isWin) {
-                gameResultElement.textContent = "恭喜过关！";
-                resultMessageElement.textContent = `你成功消除了所有麻将牌！`;
-                nextLevelBtn.style.display = 'inline-block';
-            } else {
-                gameResultElement.textContent = "游戏结束";
-                resultMessageElement.textContent = "没有可消除的牌了！";
-                nextLevelBtn.style.display = 'none';
+            // 更新积分榜（如果当前分数更高）
+            if (gameState.score > gameState.highScore) {
+                gameState.highScore = gameState.score;
             }
             
-            finalScoreElement.textContent = gameState.score;
-            showGameOver();
-            
-            // 播放游戏结束音效
-            playSound(isWin ? 'win' : 'lose');
+            // 保存积分榜数据
+            saveScoreboard();
         }
 
-        // 显示游戏结束界面
-        function showGameOver() {
-            gameOverElement.classList.add('active');
-        }
-
-        // 隐藏游戏结束界面
+        // 隐藏过关界面
         function hideGameOver() {
             gameOverElement.classList.remove('active');
         }
 
-        // 进入下一关
-        function nextLevel() {
-            config.level++;
-            initGame();
+        // 显示失败界面
+        function showGameFail() {
+            gameState.isGameOver = true;
+            failScoreElement.textContent = gameState.score;
+            failLevelElement.textContent = gameState.level;
+            gameFailElement.classList.add('active');
+            playSound('lose');
+            
+            // 更新积分榜（如果当前分数更高）
+            if (gameState.score > gameState.highScore) {
+                gameState.highScore = gameState.score;
+            }
+            
+            // 保存积分榜数据
+            saveScoreboard();
+        }
+
+        // 隐藏失败界面
+        function hideGameFail() {
+            gameFailElement.classList.remove('active');
+        }
+
+        // 显示通关动画
+        function showCompletionAnimation() {
+            gameState.isGameComplete = true;
+            completionScoreElement.textContent = gameState.score;
+            
+            // 更新积分榜（如果当前分数更高）
+            if (gameState.score > gameState.highScore) {
+                gameState.highScore = gameState.score;
+            }
+            
+            // 保存积分榜数据
+            saveScoreboard();
+            
+            // 创建彩色纸屑效果
+            createConfetti();
+            
+            completionAnimation.classList.add('active');
+            
+            // 播放胜利音效
+            playSound('win');
+        }
+
+        // 创建彩色纸屑效果
+        function createConfetti() {
+            const colors = ['#ffde59', '#ff7b7b', '#6a5acd', '#00ff00', '#00bfff', '#ff69b4'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = `${Math.random() * 10 + 5}px`;
+                confetti.style.height = `${Math.random() * 15 + 10}px`;
+                confetti.style.animationDuration = `${Math.random() * 2 + 2}s`;
+                confetti.style.animationDelay = `${Math.random() * 1}s`;
+                
+                document.body.appendChild(confetti);
+                
+                // 动画结束后移除纸屑
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+
+        // 隐藏通关动画
+        function hideCompletionAnimation() {
+            completionAnimation.classList.remove('active');
+            
+            // 移除所有纸屑
+            document.querySelectorAll('.confetti').forEach(confetti => {
+                confetti.remove();
+            });
+        }
+
+        // 显示积分榜
+        function showScoreboard() {
+            // 更新积分榜显示
+            highScoreElement.textContent = gameState.highScore;
+            
+            scoreboardModal.classList.add('active');
+        }
+
+        // 隐藏积分榜
+        function hideScoreboard() {
+            scoreboardModal.classList.remove('active');
+        }
+
+        // 加载积分榜数据
+        function loadScoreboard() {
+            try {
+                const savedHighScore = localStorage.getItem('mahjongHighScore');
+                
+                if (savedHighScore) {
+                    gameState.highScore = parseInt(savedHighScore);
+                }
+            } catch (e) {
+                console.log("无法加载积分榜数据");
+            }
+        }
+
+        // 保存积分榜数据
+        function saveScoreboard() {
+            try {
+                localStorage.setItem('mahjongHighScore', gameState.highScore);
+            } catch (e) {
+                console.log("无法保存积分榜数据");
+            }
         }
 
         // 更新UI
         function updateUI() {
             scoreElement.textContent = gameState.score;
-            selectedElement.textContent = gameState.selectedTiles.length;
+            levelElement.textContent = `${gameState.level}/${config.totalLevels}`;
             updateRemainingCount();
             updateSlotsUsed();
         }
@@ -1523,11 +2051,26 @@
         shuffleBtn.addEventListener('click', shuffleTiles);
         restartBtn.addEventListener('click', () => {
             config.level = 1;
+            gameState.score = 0;
             initGame();
         });
+        scoreboardBtn.addEventListener('click', showScoreboard);
         nextLevelBtn.addEventListener('click', nextLevel);
         gameOverRestartBtn.addEventListener('click', () => {
             config.level = 1;
+            gameState.score = 0;
+            initGame();
+        });
+        failRestartBtn.addEventListener('click', () => {
+            config.level = 1;
+            gameState.score = 0;
+            initGame();
+        });
+        closeScoreboardBtn.addEventListener('click', hideScoreboard);
+        completionRestartBtn.addEventListener('click', () => {
+            hideCompletionAnimation();
+            config.level = 1;
+            gameState.score = 0;
             initGame();
         });
 
@@ -1535,5 +2078,4 @@
         initGame();
     </script>
 </body>
-
 </html>
